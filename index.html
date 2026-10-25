@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a1020">
+<title>Quotex Signal Lab</title>
+<style>
+:root{color-scheme:dark;--bg:#080d19;--panel:#111a2b;--panel2:#0d1525;--line:#26344b;--muted:#93a4bd;--text:#eef4ff;--cyan:#48d7e8;--blue:#6688ff;--green:#32d69a;--red:#ff6f86;--amber:#ffc66d}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 12% -10%,#182b4b 0,transparent 36%),var(--bg);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text);min-height:100vh}
+button,select{font:inherit}button{cursor:pointer}
+.wrap{max-width:1240px;margin:auto;padding:18px 16px 40px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--cyan),var(--blue));display:grid;place-items:center;color:#07111f;font-size:22px;font-weight:900;box-shadow:0 8px 28px #48d7e82a}.brand h1{font-size:18px;line-height:1.15;margin:0}.brand p{font-size:12px;color:var(--muted);margin:5px 0 0}.pill{border:1px solid var(--line);border-radius:999px;padding:8px 11px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:7px;white-space:nowrap}.dot{width:7px;height:7px;background:var(--amber);border-radius:50%;display:inline-block}.hero{display:grid;grid-template-columns:1.5fr .8fr;gap:14px;margin-bottom:14px}.card{background:linear-gradient(150deg,#141f33f2,#0e1727f7);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 14px 40px #0000001a;min-width:0}.eyebrow{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);font-weight:750}.headline{font-size:clamp(23px,4vw,34px);letter-spacing:-1px;margin:10px 0 8px}.sub{color:var(--muted);font-size:13px;line-height:1.55}.toolbar{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-top:20px}.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:7px}.field select{width:100%;background:#0a1221;color:var(--text);border:1px solid #31415a;border-radius:11px;padding:12px;outline:none}.primary{border:0;border-radius:12px;padding:12px 16px;background:linear-gradient(120deg,var(--cyan),#76a1ff);color:#07111f;font-weight:850;box-shadow:0 7px 22px #48d7e81c}.primary:disabled{opacity:.55;cursor:wait}.signalbox{display:flex;flex-direction:column;justify-content:space-between;min-height:215px;background:radial-gradient(circle at 100% 0,#263e67 0,transparent 46%),linear-gradient(145deg,#17243a,#0e1727)}.signalhead{display:flex;justify-content:space-between;align-items:center}.signalbadge{font-size:11px;padding:6px 9px;border-radius:8px;background:#28374d;color:#b9c8dc}.signal{font-size:36px;letter-spacing:1px;font-weight:900;margin:18px 0 4px}.signal.wait{color:var(--amber)}.signal.call{color:var(--green)}.signal.put{color:var(--red)}.signalfoot{display:flex;justify-content:space-between;gap:10px;align-items:end}.timer{font-size:28px;font-variant-numeric:tabular-nums;font-weight:850}.tiny{font-size:11px;color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}.stat{background:#10192a;border:1px solid var(--line);border-radius:15px;padding:14px}.stat .value{font-size:19px;font-weight:800;margin-top:8px;overflow-wrap:anywhere}.stat .label{font-size:11px;color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,.8fr);gap:14px}.cardtitle{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.cardtitle h2{font-size:15px;margin:0}.chartwrap{height:270px;position:relative;background:linear-gradient(180deg,#0b1423,#0a1120);border:1px solid #233149;border-radius:13px;overflow:hidden}.chartwrap canvas{width:100%;height:100%;display:block}.chartnote{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:11px;margin-top:10px}.indicators{display:grid;grid-template-columns:1fr 1fr;gap:10px}.indicator{background:#0c1525;border:1px solid #25334a;border-radius:12px;padding:12px}.indicator span{font-size:11px;color:var(--muted)}.indicator strong{display:block;margin-top:6px;font-size:14px}.history{margin-top:14px}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px;min-width:400px}th,td{text-align:left;padding:11px 8px;border-bottom:1px solid #253149}th{color:var(--muted);font-weight:600}td{font-variant-numeric:tabular-nums}.statusline{font-size:12px;line-height:1.5;color:var(--muted);margin-top:12px;overflow-wrap:anywhere}.statusline.error{color:var(--red)}.statusline.good{color:var(--green)}.disclaimer{margin-top:14px;font-size:11px;line-height:1.6;color:#8192aa}.mobileactions{display:none}.footer{color:#6f819a;font-size:11px;text-align:center;margin:22px 0 0}
+@media(max-width:800px){.wrap{padding:14px 12px 28px}.hero,.layout{grid-template-columns:1fr}.signalbox{min-height:185px}.stats{grid-template-columns:repeat(2,1fr)}.toolbar{grid-template-columns:1fr 1fr}.toolbar .primary{grid-column:1/-1}.chartwrap{height:240px}.pill{font-size:10px;padding:7px 9px}.brand h1{font-size:16px}.card{padding:15px}.signal{font-size:32px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="brand"><div class="logo">Q</div><div><h1>Quotex Signal Lab</h1><p>Market analysis workspace</p></div></div>
+  <div class="pill"><span class="dot" id="liveDot"></span><span id="connectionText">Checking server…</span></div>
+</header>
+
+<section class="hero">
+  <div class="card">
+    <div class="eyebrow">Market intelligence / live provider feed</div>
+    <div class="headline">Read the market.<br><span style="color:var(--cyan)">Not the hype.</span></div>
+    <div class="sub">Technical analysis based on returned market candles. Data availability depends on your Twelve Data plan and symbol support.</div>
+    <div class="toolbar">
+      <div class="field"><label for="symbol">MARKET PAIR</label><select id="symbol"><option>EUR/USD</option><option>GBP/USD</option><option>USD/JPY</option><option>USD/CHF</option><option>AUD/USD</option><option>USD/CAD</option><option>NZD/USD</option><option>XAU/USD</option><option>BTC/USD</option><option>ETH/USD</option></select></div>
+      <div class="field"><label for="interval">TIMEFRAME</label><select id="interval"><option value="1min">1 minute</option><option value="5min">5 minutes</option><option value="15min">15 minutes</option><option value="30min">30 minutes</option><option value="1h">1 hour</option><option value="4h">4 hours</option><option value="1day">1 day</option></select></div>
+      <button class="primary" id="analyze">↗ Analyze market</button>
+    </div>
+    <div class="statusline" id="marketStatus">Waiting for first market-data request.</div>
+  </div>
+  <div class="card signalbox">
+    <div class="signalhead"><span class="eyebrow">Rule-based assessment</span><span class="signalbadge" id="signalTag">NOT ANALYZED</span></div>
+    <div><div class="signal wait" id="signal">WAIT</div><div class="sub" id="signalReason">Load real candles to calculate indicators.</div></div>
+    <div class="signalfoot"><div><div class="tiny">Candle expiry timer</div><div class="timer" id="timer">01:00</div></div><div style="text-align:right"><div class="tiny">Last close</div><strong id="lastPrice">—</strong></div></div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="stat"><div class="label">DATA PROVIDER</div><div class="value" id="providerValue">Twelve Data</div></div>
+  <div class="stat"><div class="label">CANDLES LOADED</div><div class="value" id="candleCount">—</div></div>
+  <div class="stat"><div class="label">RSI (14)</div><div class="value" id="rsiValue">—</div></div>
+  <div class="stat"><div class="label">EMA TREND</div><div class="value" id="trendValue">—</div></div>
+</section>
+
+<section class="layout">
+  <div class="card">
+    <div class="cardtitle"><h2>Price action</h2><span class="signalbadge" id="chartPair">EUR/USD · 1m</span></div>
+    <div class="chartwrap"><canvas id="chart"></canvas></div>
+    <div class="chartnote"><span>OHLC candle closes · newest at right</span><span id="chartUpdated">No data yet</span></div>
+    <div class="history">
+      <div class="cardtitle"><h2>Recent candles</h2><span class="tiny">Provider data</span></div>
+      <div class="tablewrap"><table><thead><tr><th>Time</th><th>Open</th><th>High</th><th>Low</th><th>Close</th></tr></thead><tbody id="candleRows"><tr><td colspan="5">No candles loaded yet.</td></tr></tbody></table></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="cardtitle"><h2>Indicator panel</h2><span class="signalbadge">TECHNICALS</span></div>
+    <div class="indicators">
+      <div class="indicator"><span>EMA 9</span><strong id="ema9">—</strong></div>
+      <div class="indicator"><span>EMA 21</span><strong id="ema21">—</strong></div>
+      <div class="indicator"><span>SMA 20</span><strong id="sma20">—</strong></div>
+      <div class="indicator"><span>MACD (12,26,9)</span><strong id="macd">—</strong></div>
+      <div class="indicator"><span>Bollinger range</span><strong id="bb">—</strong></div>
+      <div class="indicator"><span>Last candle</span><strong id="lastCandle">—</strong></div>
+    </div>
+    <div class="cardtitle" style="margin-top:20px"><h2>Signal result tracker</h2><span class="signalbadge">HONEST LOG</span></div>
+    <div class="sub">Only outcomes you manually record are counted. No automatic win-rate claims.</div>
+    <div class="toolbar" style="grid-template-columns:1fr 1fr;margin-top:12px">
+      <button class="primary" id="recordWin">Record win</button>
+      <button class="primary" id="recordLoss" style="background:linear-gradient(120deg,#ff8294,#ffb07b)">Record loss</button>
+    </div>
+    <div class="stats" style="grid-template-columns:1fr 1fr;margin-top:12px">
+      <div class="stat"><div class="label">WINS</div><div class="value" id="wins">0</div></div>
+      <div class="stat"><div class="label">LOSSES</div><div class="value" id="losses">0</div></div>
+    </div>
+    <button id="clearLog" style="width:100%;padding:10px;background:#111b2d;color:var(--muted);border:1px solid var(--line);border-radius:10px">Clear result log</button>
+    <div class="statusline" id="trackerStatus">Result tracker starts at zero on this device.</div>
+    <div class="disclaimer">CALL/PUT/WAIT is a rule-based indicator summary, not a guarantee or financial advice. This site cannot fetch Quotex OTC prices from Twelve Data; OTC prices can differ from regular market feeds. Data refresh is not every 0.5 seconds.</div>
+  </div>
+</section>
+<div class="footer">Quotex Signal Lab · Built for mobile · Never trade money you cannot afford to lose</div>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+let candles = [];
+let currentSignal = "WAIT";
+let timerInterval = null;
+let remaining = 60;
+let resultCounts = {wins:0, losses:0};
+try { resultCounts = JSON.parse(localStorage.getItem("qsl-results") || '{"wins":0,"losses":0}'); } catch(e) {}
+function fmt(n){ if(!Number.isFinite(n)) return "—"; return n.toLocaleString(undefined,{maximumFractionDigits:6}); }
+function average(a){ return a.length ? a.reduce((s,v)=>s+v,0)/a.length : NaN; }
+function ema(values, period){ if(values.length < period) return NaN; let k=2/(period+1), v=average(values.slice(0,period)); for(let i=period;i<values.length;i++) v=values[i]*k+v*(1-k); return v; }
+function rsi(values, period=14){ if(values.length<=period) return NaN; let gains=0,losses=0; for(let i=values.length-period;i<values.length;i++){let d=values[i]-values[i-1];if(d>0)gains+=d;else losses-=d;} if(losses===0)return 100; return 100-100/(1+gains/losses); }
+function macd(values){const a=ema(values,12),b=ema(values,26);return a-b;}
+function setStatus(msg, kind=""){ $("marketStatus").textContent=msg; $("marketStatus").className="statusline "+kind; }
+async function health(){
+ try { const r=await fetch("/api/health"); const d=await r.json(); $("connectionText").textContent=d.ok?"Server connected": "Server issue"; $("liveDot").style.background=d.ok?"var(--green)":"var(--red)"; $("providerValue").textContent=d.providerConfigured?"Twelve Data ready":"API key needed"; if(!d.providerConfigured) setStatus("Server is online, but TWELVEDATA_API_KEY is not configured in Render.", "error"); }
+ catch(e){ $("connectionText").textContent="Server unreachable"; $("liveDot").style.background="var(--red)"; setStatus("Cannot reach the server health endpoint.", "error"); }
+}
+async function loadMarket(){
+ const btn=$("analyze"); btn.disabled=true; btn.textContent="Loading…";
+ const symbol=$("symbol").value, interval=$("interval").value;
+ setStatus("Requesting candles from Twelve Data…");
+ try{
+  const response=await fetch(`/api/market?symbol=${encodeURIComponent(symbol)}&interval=${encodeURIComponent(interval)}&outputsize=100`);
+  const data=await response.json();
+  if(!response.ok||!data.ok){ throw new Error(data.error+(data.providerMessage?": "+data.providerMessage:"")+(data.setup?" "+data.setup:"")); }
+  candles=data.candles||[];
+  if(candles.length<5) throw new Error("Provider returned too few candles to assess the market.");
+  renderMarket(data);
+  setStatus(`Connected to ${data.provider}. ${candles.length} candles received${data.cached?" (cached)":""}.`, "good");
+ }catch(e){ setStatus(e.message||"Market data request failed.", "error"); $("signal").textContent="WAIT"; $("signal").className="signal wait"; $("signalTag").textContent="NO DATA"; $("signalReason").textContent="No valid live candle response. No signal generated."; }
+ finally{btn.disabled=false;btn.textContent="↗ Analyze market";}
+}
+function renderMarket(data){
+ const closes=candles.map(c=>c.close), latest=candles[candles.length-1], e9=ema(closes,9),e21=ema(closes,21),s20=average(closes.slice(-20)),rv=rsi(closes),m=macd(closes),sd=Math.sqrt(average(closes.slice(-20).map(x=>(x-s20)**2))),lower=s20-2*sd,upper=s20+2*sd;
+ $("candleCount").textContent=candles.length; $("lastPrice").textContent=fmt(latest.close); $("rsiValue").textContent=Number.isFinite(rv)?rv.toFixed(1):"—"; $("trendValue").textContent=e9>e21?"Bullish":e9<e21?"Bearish":"Neutral";
+ $("ema9").textContent=fmt(e9); $("ema21").textContent=fmt(e21); $("sma20").textContent=fmt(s20); $("macd").textContent=fmt(m); $("bb").textContent=Number.isFinite(lower)?`${fmt(lower)} – ${fmt(upper)}`:"—";
+ $("lastCandle").textContent=latest.close>latest.open?"Bullish":latest.close<latest.open?"Bearish":"Doji";
+ $("chartPair").textContent=`${data.symbol} · ${data.interval}`; $("chartUpdated").textContent=`Updated ${new Date(data.fetchedAt).toLocaleTimeString()}`;
+ const score=(e9>e21?1:e9<e21?-1:0)+(latest.close>s20?1:latest.close<s20?-1:0)+(rv<35?1:rv>65?-1:0)+(m>0?1:m<0?-1:0);
+ currentSignal=score>=2?"CALL":score<=-2?"PUT":"WAIT";
+ $("signal").textContent=currentSignal; $("signal").className="signal "+currentSignal.toLowerCase(); $("signalTag").textContent=`SCORE ${score>0?"+":""}${score}/4`;
+ $("signalReason").textContent=currentSignal==="CALL"?"Several indicators lean upward; confirm price action and risk.":currentSignal==="PUT"?"Several indicators lean downward; confirm price action and risk.":"Indicators are mixed or lack a strong alignment.";
+ renderTable(); drawChart(); resetTimer();
+}
+function renderTable(){
+ $("candleRows").innerHTML=candles.slice(-8).reverse().map(c=>`<tr><td>${escapeHtml(String(c.datetime||"").slice(-8))}</td><td>${fmt(c.open)}</td><td>${fmt(c.high)}</td><td>${fmt(c.low)}</td><td style="color:${c.close>=c.open?'var(--green)':'var(--red)'}">${fmt(c.close)}</td></tr>`).join("");
+}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function drawChart(){
+ const canvas=$("chart"),rect=canvas.getBoundingClientRect(),dpr=window.devicePixelRatio||1;canvas.width=Math.max(1,rect.width*dpr);canvas.height=Math.max(1,rect.height*dpr);
+ const ctx=canvas.getContext("2d");ctx.scale(dpr,dpr);const w=rect.width,h=rect.height;ctx.clearRect(0,0,w,h);
+ const list=candles.slice(-48);if(!list.length)return;
+ const min=Math.min(...list.map(c=>c.low)),max=Math.max(...list.map(c=>c.high)),pad=(max-min)*.12||.001,lo=min-pad,hi=max+pad;
+ const y=v=>h-18-(v-lo)/(hi-lo)*(h-34),left=12,top=12,plotW=w-54,plotH=h-34;
+ ctx.font="10px system-ui";ctx.strokeStyle="#1d2b41";ctx.fillStyle="#8093ad";ctx.lineWidth=1;
+ for(let i=0;i<5;i++){const yy=top+i*plotH/4;ctx.beginPath();ctx.moveTo(left,yy);ctx.lineTo(w-44,yy);ctx.stroke();const val=hi-(hi-lo)*i/4;ctx.fillText(val.toFixed(val<10?4:2),w-40,yy+3);}
+ const step=plotW/list.length,cw=Math.max(3,step*.56);
+ list.forEach((c,i)=>{const x=left+i*step+step/2,up=c.close>=c.open,color=up?"#32d69a":"#ff6f86";ctx.strokeStyle=color;ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(x,y(c.high));ctx.lineTo(x,y(c.low));ctx.stroke();const yy=Math.min(y(c.open),y(c.close)),hh=Math.max(2,Math.abs(y(c.open)-y(c.close)));ctx.fillRect(x-cw/2,yy,cw,hh);});
+ const last=list[list.length-1].close;ctx.setLineDash([4,4]);ctx.strokeStyle="#48d7e8";ctx.beginPath();ctx.moveTo(left,y(last));ctx.lineTo(w-44,y(last));ctx.stroke();ctx.setLineDash([]);
+}
+function resetTimer(){remaining=60;renderTimer();}
+function renderTimer(){const m=String(Math.floor(remaining/60)).padStart(2,"0"),s=String(remaining%60).padStart(2,"0");$("timer").textContent=`${m}:${s}`;}
+timerInterval=setInterval(()=>{remaining--;if(remaining<0)remaining=59;renderTimer();},1000);
+function saveResults(){localStorage.setItem("qsl-results",JSON.stringify(resultCounts));$("wins").textContent=resultCounts.wins;$("losses").textContent=resultCounts.losses;$("trackerStatus").textContent=`Manually recorded: ${resultCounts.wins+resultCounts.losses} outcomes. Not independently verified.`;}
+$("recordWin").addEventListener("click",()=>{resultCounts.wins++;saveResults();});
+$("recordLoss").addEventListener("click",()=>{resultCounts.losses++;saveResults();});
+$("clearLog").addEventListener("click",()=>{if(confirm("Clear all manually recorded outcomes on this device?")){resultCounts={wins:0,losses:0};saveResults();}});
+$("analyze").addEventListener("click",loadMarket);$("symbol").addEventListener("change",()=>{if(candles.length)loadMarket();});$("interval").addEventListener("change",()=>{if(candles.length)loadMarket();});
+window.addEventListener("resize",()=>{if(candles.length)drawChart();});
+saveResults();health();loadMarket();
+</script>
+</body>
+</html>
